@@ -1,0 +1,141 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AnyMaker</title>
+<link href="./AnyMaker_files/style.css" rel="stylesheet">
+<script type="text/javascript" src="./AnyMaker_files/jquery.mlens-1.0.min.js"></script> 
+<script type="text/javascript" src="./AnyMaker_files/jquery.js"></script>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+<body>
+<div class="content">
+  <h1><strong>AnyMaker: Zero-shot General Object Customization via Decoupled Dual-Level ID Injection</strong></h1>
+  <p id="authors"> Lingjie Kong<sup>1</sup>&#42 Kai Wu<sup>2</sup>&#42, Xiaobin Hu<sup>2</sup>, Wenhui Han<sup>2</sup>, Jinlong Peng<sup>2</sup>, <br>
+Chengming Xu<sup>2</sup>, Donghao Luo<sup>2</sup>, Jiangning Zhang<sup>2</sup>, Chengjie Wang<sup>2</sup>, Yanwei Fu<sup>1</sup>&#8224 <br>
+<br>
+<sup>1</sup>Fudan University, <sup>2</sup>Tencent Youtu Lab<br>
+
+<br>
+<span style="font-size: 16px">&#42 Equal contribution, &#8224 Corresponding Author<br>
+  </span>
+
+</p>
+
+  <br>
+  <img src="./AnyMaker_files/overview-new.png" class="teaser-gif" style="width:100%;"><br>
+  <h4 style="text-align:center"><em>Given a text prompt and one single reference image, AnyMaker can customizing any objects within seconds. </em></h4>
+    <font size="+2">
+          <p style="text-align: center;">
+            <a href="https://arxiv.org/abs/2406.11643" target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	     <a href="https://github.com/LingjieKong-fdu/AnyMaker" target="_blank">[Code & dataset]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="AnyMaker_files/bibtex.txt" target="_blank">[BibTeX]</a>
+          </p>
+    </font>
+</div>
+<div class="content">
+  <h2 style="text-align:center;">Abstract</h2>
+  <p> Text-to-image based object customization, aiming to generate images with the same identity (ID) as objects of interest in accordance with text prompts and reference images, has made significant progress.
+However, recent customizing research is dominated by specialized tasks, such as human customization or virtual try-on, leaving a gap in general object customization. 
+To this end, we introduce <b>AnyMaker</b>, an innovative zero-shot object customization framework capable of generating general objects with high ID fidelity and flexible text editability. The efficacy of AnyMaker stems from its novel general ID extraction, dual-level ID injection, and ID-aware decoupling.
+Specifically, the general ID extraction module extracts sufficient ID information with an ensemble of self-supervised models to tackle the diverse customization tasks for general objects. Then, to provide the diffusion UNet with the extracted ID as much while not damaging the text editability in the generation process, we design a global-local dual-level ID injection module, in which the global-level semantic ID is injected into text descriptions while the local-level ID details are injected directly into the model through newly added cross-attention modules.
+In addition, we propose an ID-aware decoupling module to disentangle ID-related information from non-ID elements in the extracted representations for high-fidelity generation of both identity and text descriptions. 
+To validate our approach and boost the research of general object customization, we create the first large-scale general ID dataset, Multi-Category ID-Consistent (MC-IDC) dataset, with 315k text-image samples and 10k categories. Experiments show that AnyMaker presents remarkable performance in general object customization and outperforms specialized methods in corresponding tasks. Code and dataset will be released soon.</p>
+</div>
+
+
+<div class="content">
+  <h2>Method</h2>
+  <p> Give a reference image and a text prompt, our goal is to generate images that shares the same ID as the object of interest from the reference image, 
+and modifies non-ID elements such as motions and backgrounds in accordance with the text prompt.
+To this end, we propose <b>AnyMaker</b>, an innovative zero-shot text-to-image customization framework for general objects.
+ Firstly, we utilize the general ID extractor to acquire sufficient ID information 
+from the reference image with a segmentation mask of the interested object. Next, we leverage the dual-level ID 
+injection to endow the diffusion model with ID information at the global and local levels respectively, 
+without damaging the text editing ability of the model. Additionally, we design a novel ID-aware decoupling module to distinguish the ID information
+ from the coupled non-ID elements in the object representation, for higher ID fidelity and better text editing ability.</p>
+  <br>
+  <img class="summary-img" src="./AnyMaker_files/0method1.png" style="width:100%;"> <br>
+</div>
+
+<div class="content">
+  <h2>General Object Customization </h2>
+  <p>Our AnyMaker is capable of generating high-ID-fidelity images given one single reference image, and simultaneously editing non-ID elements like posture or background in accordance with text prompts. </p>
+<img class="summary-img" src="./AnyMaker_files/idd1.png" style="width:100%;"><br>
+<img class="summary-img" src="./AnyMaker_files/idd2.png" style="width:100%;"><br>
+<img class="summary-img" src="./AnyMaker_files/idd3.png" style="width:100%;"><br>
+</div>
+
+<div class="content">
+  <h2>Virtual Try-on </h2>
+  <p>Given a piece of clothing, the AnyMaker can generate images of the clothing worn on a person. </p>
+<img class="summary-img" src="./AnyMaker_files/cloth7.png" style="width:100%;">
+</div>
+
+<div class="content">
+  <h2>Story Generation </h2>
+  <p>Our AnyMaker can generate diverse images under the guidance of text prompts, while maintaining the same identity as the object of interest in the reference image, thereby enabling the creation of a cohesive narrative. </p>
+<img class="summary-img" src="./AnyMaker_files/storygen1.png" style="width:100%;">
+</div>
+
+
+<div class="content">
+  <h2> Text-Image ID Mixing </h2>
+  <p>If the category of the interested object in the text prompt and that in the reference image is not the same, our AnyMaker can merge the two and form a new ID. </p>
+<img class="summary-img" src="./AnyMaker_files/idmix.png" style="width:100%;">
+</div>
+
+<div class="content">
+  <h2> ID-Consistent Generation </h2>
+  <p>The AnyMaker can generate multiple ID-consistent images with diverse non-ID elements such as motions and orientations. </p>
+<img class="summary-img" src="./AnyMaker_files/idconsis.png" style="width:100%;">
+</div>
+
+
+<div class="content">
+  <h2>Comparisons </h2>
+  <p>The AnyMaker exhibits outstanding capabilities of high-quality customization for general objects, and even beat task-specialized methods in the specific domains, such as human customization and virtual try-on, in terms of ID fidelity and text editability.</p>
+<img class="summary-img" src="./AnyMaker_files/compare.png" style="width:100%;">
+</div>
+
+<div class="content">
+  <h2>General ID Dataset </h2>
+  <p>To promot the research of the general object customization, we construct the first large-scale general ID dataset, named as Multi-Category ID-Consistent (MC-IDC) dataset. Our dataset consists of approximately 315,000 samples in total with more than 10,000 categories, covering various types such as human faces, animals, clothes, human-made tools, etc. Each sample consists of a reference image, a segmentation mask of the object of interest in the reference image, a target image, and a text caption of the target image. The reference image with its segmentation mask provides ID information, the text caption of the target image offers semantic-level guidance for generation, and the target image serves as the ground truth.</p>
+<img class="summary-img" src="./AnyMaker_files/dataset.png" style="width:100%;">
+</div>
+
+
+
+<div class="content">
+  <h2>BibTex</h2>
+  <code> @misc{kong2024anymaker,<br>
+  &nbsp;&nbsp;&nbsp;title={AnyMaker: Zero-shot General Object Customization via Decoupled Dual-Level ID Injection}, <br>
+  &nbsp;&nbsp;&nbsp;author={Lingjie Kong and Kai Wu and Xiaobin Hu and Wenhui Han and Jinlong Peng and Chengming Xu and Donghao Luo and Jiangning Zhang and <br> &nbsp;&nbsp;&nbsp;Chengjie Wang and Yanwei Fu},<br>
+&nbsp;&nbsp;&nbsp;year={2024},<br>
+&nbsp;&nbsp;&nbsp;eprint={2406.11643},<br>
+&nbsp;&nbsp;&nbsp;archivePrefix={arXiv},<br>
+  &nbsp;&nbsp;&nbsp;primaryClass={id='cs.CV' full_name='Computer Vision and Pattern Recognition' is_active=True alt_name=None in_archive='cs' is_general<br> &nbsp;&nbsp;&nbsp;=False description='Covers image processing, computer vision, pattern recognition, and scene understanding. Roughly includes material in ACM <br> &nbsp;&nbsp;&nbsp;Subject Classes I.2.10, I.4, and I.5.'}
+<br>
+  } </code> 
+</div>
+<div class="content">
+  The code and dataset will be released soon in our <a href="https://github.com/LingjieKong-fdu/AnyMaker" target="_blank">repository</a>. 
+</div>
+<div class="content">
+The format of this project page is inspired by <a href="https://dreambooth.github.io/" target="_blank">DreamBooth</a>.
+</div>
+
+  </p>
+</div>
+</body>
+</html>
+

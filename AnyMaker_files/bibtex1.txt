@@ -1,0 +1,6 @@
+@article{kong2024anymaker,
+  title={AnyMaker: Zero-shot General Object Customization via Decoupled Dual-Level ID Injection},
+  author={Kong, Lingjie and Wu, Kai and Hu, Xiaobin and Han, Wenhui and Peng, Jinlong and Xu, Chengming and Luo, Donghao and Zhang, Jiangning and Wang, Chengjie and Fu, Yanwei},
+  journal={arXiv preprint arXiv:2406.11643},
+  year={2024}
+}

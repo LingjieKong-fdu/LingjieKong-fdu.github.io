@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>AnyMaker</title>
+<title>CustAny</title>
 <link href="./AnyMaker_files/style.css" rel="stylesheet">
 <script type="text/javascript" src="./AnyMaker_files/jquery.mlens-1.0.min.js"></script> 
 <script type="text/javascript" src="./AnyMaker_files/jquery.js"></script>
@@ -19,7 +19,7 @@
 
 <body>
 <div class="content">
-  <h1><strong>AnyMaker: Zero-shot General Object Customization via Decoupled Dual-Level ID Injection</strong></h1>
+  <h1><strong>CustAny: Customizing Anything from A Single Example</strong></h1>
   <p id="authors"> Lingjie Kong<sup>1</sup>&#42 Kai Wu<sup>2</sup>&#42, Xiaobin Hu<sup>2</sup>, Wenhui Han<sup>2</sup>, Jinlong Peng<sup>2</sup>, <br>
 Chengming Xu<sup>2</sup>, Donghao Luo<sup>2</sup>, Jiangning Zhang<sup>2</sup>, Chengjie Wang<sup>2</sup>, Yanwei Fu<sup>1</sup>&#8224 <br>
 <br>
@@ -33,7 +33,7 @@ Chengming Xu<sup>2</sup>, Donghao Luo<sup>2</sup>, Jiangning Zhang<sup>2</sup>, 
 
   <br>
   <img src="./AnyMaker_files/overview-new.png" class="teaser-gif" style="width:100%;"><br>
-  <h4 style="text-align:center"><em>Given a text prompt and one single reference image, AnyMaker can customizing any objects within seconds. </em></h4>
+  <h4 style="text-align:center"><em>Given a text prompt and one single reference image, CustAny can customizing any objects within seconds. </em></h4>
     <font size="+2">
           <p style="text-align: center;">
             <a href="https://arxiv.org/abs/2406.11643v3" target="_blank">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -44,25 +44,23 @@ Chengming Xu<sup>2</sup>, Donghao Luo<sup>2</sup>, Jiangning Zhang<sup>2</sup>, 
 </div>
 <div class="content">
   <h2 style="text-align:center;">Abstract</h2>
-  <p> Text-to-image based object customization, aiming to generate images with the same identity (ID) as objects of interest in accordance with text prompts and reference images, has made significant progress.
-However, recent customizing research is dominated by specialized tasks, such as human customization or virtual try-on, leaving a gap in general object customization. 
-To this end, we introduce <b>AnyMaker</b>, an innovative zero-shot object customization framework capable of generating general objects with high ID fidelity and flexible text editability. The efficacy of AnyMaker stems from its novel general ID extraction, dual-level ID injection, and ID-aware decoupling.
-Specifically, the general ID extraction module extracts sufficient ID information with an ensemble of self-supervised models to tackle the diverse customization tasks for general objects. Then, to provide the diffusion UNet with the extracted ID as much while not damaging the text editability in the generation process, we design a global-local dual-level ID injection module, in which the global-level semantic ID is injected into text descriptions while the local-level ID details are injected directly into the model through newly added cross-attention modules.
-In addition, we propose an ID-aware decoupling module to disentangle ID-related information from non-ID elements in the extracted representations for high-fidelity generation of both identity and text descriptions. 
-To validate our approach and boost the research of general object customization, we create the first large-scale general ID dataset, Multi-Category ID-Consistent (MC-IDC) dataset, with 315k text-image samples and 10k categories. Experiments show that AnyMaker presents remarkable performance in general object customization and outperforms specialized methods in corresponding tasks. Code and dataset will be released soon.</p>
+  <p>Recent advances in diffusion-based text-to-image models have simplified creating high-fidelity images, but preserving the identity (ID) of specific elements, like a personal dog, is still challenging.
+Object customization, using reference images and textual descriptions, is key to addressing this issue. 
+Current object customization methods are either object-specific, requiring extensive fine-tuning, or object-agnostic, offering zero-shot customization but limited to specialized domains. 
+The primary issue of promoting zero-shot object customization from specific domains to the general domain is to establish a large-scale general ID dataset for model pre-training, which is time-consuming and labor-intensive. In this paper, we propose a novel pipeline to construct a large dataset of general objects and build the Multi-Category ID-Consistent (MC-IDC) dataset, featuring 315k text-image samples across 10k categories. With the help of MC-IDC, we introduce Customizing Anything (CustAny), a zero-shot framework that maintains ID fidelity and supports flexible text editing for general objects. CustAny features three key components: a general ID extraction module, a dual-level ID injection module, and an ID-aware decoupling module, allowing it to customize any object from a single reference image and text prompt. Experiments demonstrate that CustAny outperforms existing methods in both general object customization and specialized domains like human customization and virtual try-on. Our contributions include a large-scale dataset, the CustAny framework and novel ID processing to advance this field. </p>
+</div>
+
+<div class="content">
+  <h2>General ID Dataset </h2>
+  <p>To promot the research of the general object customization, we construct the first large-scale general ID dataset, named as Multi-Category ID-Consistent (MC-IDC) dataset. Our dataset consists of approximately 315,000 samples in total with more than 10,000 categories, covering various types such as human faces, animals, clothes, human-made tools, etc. Each sample consists of a reference image, a segmentation mask of the object of interest in the reference image, a target image, and a text caption of the target image. The reference image with its segmentation mask provides ID information, the text caption of the target image offers semantic-level guidance for generation, and the target image serves as the ground truth.</p>
+<img class="summary-img" src="./AnyMaker_files/dataset.png" style="width:100%;">
 </div>
 
 
 <div class="content">
   <h2>Method</h2>
-  <p> Give a reference image and a text prompt, our goal is to generate images that shares the same ID as the object of interest from the reference image, 
-and modifies non-ID elements such as motions and backgrounds in accordance with the text prompt.
-To this end, we propose <b>AnyMaker</b>, an innovative zero-shot text-to-image customization framework for general objects.
- Firstly, we utilize the general ID extractor to acquire sufficient ID information 
-from the reference image with a segmentation mask of the interested object. Next, we leverage the dual-level ID 
-injection to endow the diffusion model with ID information at the global and local levels respectively, 
-without damaging the text editing ability of the model. Additionally, we design a novel ID-aware decoupling module to distinguish the ID information
- from the coupled non-ID elements in the object representation, for higher ID fidelity and better text editing ability.</p>
+  <p> Given a reference image and text prompt, our goal is to generate an image that retains the identity (ID) of the object in the reference while modifying non-ID elements, like motions and backgrounds, based on the prompt. Thus we introduce CustAny, a zero-shot text-to-image customization framework for general objects. 
+We first use an ID extractor to capture ID information from the reference image with a segmentation mask. Dual-level ID injection is then applied to embed the ID into the diffusion model globally and locally, preserving text-editing capabilities. Finally, an ID-aware decoupling module separates ID details from non-ID elements, improving ID fidelity and text-editing accuracy.</p>
   <br>
   <img class="summary-img" src="./AnyMaker_files/0method1.png" style="width:100%;"> <br>
 </div>
@@ -107,11 +105,7 @@ without damaging the text editing ability of the model. Additionally, we design 
 <img class="summary-img" src="./AnyMaker_files/compare.png" style="width:100%;">
 </div>
 
-<div class="content">
-  <h2>General ID Dataset </h2>
-  <p>To promot the research of the general object customization, we construct the first large-scale general ID dataset, named as Multi-Category ID-Consistent (MC-IDC) dataset. Our dataset consists of approximately 315,000 samples in total with more than 10,000 categories, covering various types such as human faces, animals, clothes, human-made tools, etc. Each sample consists of a reference image, a segmentation mask of the object of interest in the reference image, a target image, and a text caption of the target image. The reference image with its segmentation mask provides ID information, the text caption of the target image offers semantic-level guidance for generation, and the target image serves as the ground truth.</p>
-<img class="summary-img" src="./AnyMaker_files/dataset.png" style="width:100%;">
-</div>
+
 
 
 

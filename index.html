@@ -47,19 +47,19 @@ Chengming Xu<sup>2</sup>, Donghao Luo<sup>2</sup>, Jiangning Zhang<sup>2</sup>, 
   <p>Recent advances in diffusion-based text-to-image models have simplified creating high-fidelity images, but preserving the identity (ID) of specific elements, like a personal dog, is still challenging.
 Object customization, using reference images and textual descriptions, is key to addressing this issue. 
 Current object customization methods are either object-specific, requiring extensive fine-tuning, or object-agnostic, offering zero-shot customization but limited to specialized domains. 
-The primary issue of promoting zero-shot object customization from specific domains to the general domain is to establish a large-scale general ID dataset for model pre-training, which is time-consuming and labor-intensive. In this paper, we propose a novel pipeline to construct a large dataset of general objects and build the Multi-Category ID-Consistent (MC-IDC) dataset, featuring 315k text-image samples across 10k categories. With the help of MC-IDC, we introduce Customizing Anything (CustAny), a zero-shot framework that maintains ID fidelity and supports flexible text editing for general objects. CustAny features three key components: a general ID extraction module, a dual-level ID injection module, and an ID-aware decoupling module, allowing it to customize any object from a single reference image and text prompt. Experiments demonstrate that CustAny outperforms existing methods in both general object customization and specialized domains like human customization and virtual try-on. Our contributions include a large-scale dataset, the CustAny framework and novel ID processing to advance this field. </p>
+The primary issue of promoting zero-shot object customization from specific domains to the general domain is to establish a large-scale general ID dataset for model pre-training, which is time-consuming and labor-intensive. In this paper, we propose a novel pipeline to construct a large dataset of general objects and build the Multi-Category ID-Consistent (<b>MC-IDC</b>) dataset, featuring 315k text-image samples across 10k categories. With the help of MC-IDC, we introduce Customizing Anything (<b>CustAny</b>), a zero-shot framework that maintains ID fidelity and supports flexible text editing for general objects. CustAny features three key components: a general ID extraction module, a dual-level ID injection module, and an ID-aware decoupling module, allowing it to customize any object from a single reference image and text prompt. Experiments demonstrate that CustAny outperforms existing methods in both general object customization and specialized domains like human customization and virtual try-on. Our contributions include a large-scale dataset, the CustAny framework and novel ID processing to advance this field. </p>
 </div>
 
 <div class="content">
   <h2>General ID Dataset </h2>
-  <p>To promot the research of the general object customization, we construct the first large-scale general ID dataset, named as Multi-Category ID-Consistent (MC-IDC) dataset. Our dataset consists of approximately 315,000 samples in total with more than 10,000 categories, covering various types such as human faces, animals, clothes, human-made tools, etc. Each sample consists of a reference image, a segmentation mask of the object of interest in the reference image, a target image, and a text caption of the target image. The reference image with its segmentation mask provides ID information, the text caption of the target image offers semantic-level guidance for generation, and the target image serves as the ground truth.</p>
+  <p>To promot the research of the general object customization, we construct the first large-scale general ID dataset, named as Multi-Category ID-Consistent (<b>MC-IDC</b>) dataset. Our dataset consists of approximately 315,000 samples in total with more than 10,000 categories, covering various types such as human faces, animals, clothes, human-made tools, etc. Each sample consists of a reference image, a segmentation mask of the object of interest in the reference image, a target image, and a text caption of the target image. The reference image with its segmentation mask provides ID information, the text caption of the target image offers semantic-level guidance for generation, and the target image serves as the ground truth.</p>
 <img class="summary-img" src="./AnyMaker_files/dataset.png" style="width:100%;">
 </div>
 
 
 <div class="content">
   <h2>Method</h2>
-  <p> Given a reference image and text prompt, our goal is to generate an image that retains the identity (ID) of the object in the reference while modifying non-ID elements, like motions and backgrounds, based on the prompt. Thus we introduce CustAny, a zero-shot text-to-image customization framework for general objects. 
+  <p> Given a reference image and text prompt, our goal is to generate an image that retains the identity (ID) of the object in the reference while modifying non-ID elements, like motions and backgrounds, based on the prompt. Thus we introduce <b>CustAny</b>, a zero-shot text-to-image customization framework for general objects. 
 We first use an ID extractor to capture ID information from the reference image with a segmentation mask. Dual-level ID injection is then applied to embed the ID into the diffusion model globally and locally, preserving text-editing capabilities. Finally, an ID-aware decoupling module separates ID details from non-ID elements, improving ID fidelity and text-editing accuracy.</p>
   <br>
   <img class="summary-img" src="./AnyMaker_files/k5-overview_02.png" style="width:100%;"> <br>
@@ -88,7 +88,7 @@ We first use an ID extractor to capture ID information from the reference image 
 
 <div class="content">
   <h2> Text-Image ID Mixing </h2>
-  <p>If the category of the interested object in the text prompt and that in the reference image is not the same, our AnyMaker can merge the two and form a new ID. </p>
+  <p>If the category of the interested object in the text prompt and that in the reference image is not the same, our CustAny can merge the two and form a new ID. </p>
 <img class="summary-img" src="./AnyMaker_files/idmix.png" style="width:100%;">
 </div>
 
